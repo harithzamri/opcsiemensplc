@@ -2,6 +2,11 @@ var nodes7 = require('nodes7');  // This is the package name, if the repository 
 var conn = new nodes7;
 var doneReading = false;
 var doneWriting = false;
+var EventEmitter = require('events')
+
+class MyEmitter extends EventEmitter {}
+
+const myEmitter = new MyEmitter();
 
 var variables = { TEST1: 'MR4', 		// Memory real at MD4
 		  TEST2: 'M32.2', 		// Bit at M32.2
@@ -23,11 +28,13 @@ function connected(err) {
 		process.exit();
 	}
 	conn.setTranslationCB(function(tag) {return variables[tag];}); 	// This sets the "translation" to allow us to work with object names
-	// conn.addItems(['TEST1', 'TEST4']);
-	conn.addItems('TEST5');
+	
+	conn.addItems(['TEST1', 'TEST3']);
+	
+	// conn.addItems('TEST3');
 // //	conn.removeItems(['TEST2', 'TEST3']);  // We could do this.
 // //	conn.writeItems(['TEST5', 'TEST6'], [ 867.5309, 9 ], valuesWritten);  // You can write an array of items as well.
- 	conn.writeItems('TEST7', [ 666, 777 ], valuesWritten);  // You can write a single array item too.
+ 	// conn.writeItems('TEST7', [ 666, 777 ], valuesWritten);  // You can write a single array item too.
 	conn.readAllItems(valuesReady);
 }
 
