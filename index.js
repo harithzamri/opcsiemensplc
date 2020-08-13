@@ -7,22 +7,6 @@ var EventEmitter = require("events");
 class MyEmitter extends EventEmitter {}
 
 const myEmitter = new MyEmitter();
-var variables = {
-  TEST1: "MR4", // Memory real at MD4
-  TEST2: "M32.2", // Bit at M32.2
-  TEST3: "DB1,X0.0", // Bit at M20.0
-  TEST4: "DB1,REAL0.20", // Array of 20 values in DB1
-  TEST5: "DB1,REAL4", // Single real value
-  TEST6: "DB1,REAL8", // Another single real value
-  TEST7: "DB1,INT12.2", // Two integer value array
-  TEST8: "DB1,LREAL4", // Single 8-byte real value
-};
-
-conn.initiateConnection(
-  { port: 102, host: "192.168.0.1", rack: 0, slot: 1 },
-  connected
-); // slot 2 for 300/400, slot 1 for 1200/1500
-//conn.initiateConnection({port: 102, host: '192.168.0.2', localTSAP: 0x0100, remoteTSAP: 0x0200, timeout: 8000}, connected); // local and remote TSAP can also be directly specified instead.  The timeout option specifies the TCP timeout.
 
 //listener
 myEmitter.on("event", () => {
@@ -47,6 +31,23 @@ myEmitter.on("event", () => {
 });
 //trigger the event
 myEmitter.emit("event");
+
+var variables = {
+  TEST1: "MR4", // Memory real at MD4
+  TEST2: "M32.2", // Bit at M32.2
+  TEST3: "DB1,X0.0", // Bit at M20.0
+  TEST4: "DB1,REAL0.20", // Array of 20 values in DB1
+  TEST5: "DB1,REAL4", // Single real value
+  TEST6: "DB1,REAL8", // Another single real value
+  TEST7: "DB1,INT12.2", // Two integer value array
+  TEST8: "DB1,LREAL4", // Single 8-byte real value
+};
+
+conn.initiateConnection(
+  { port: 102, host: "192.168.0.1", rack: 0, slot: 1 },
+  connected
+); // slot 2 for 300/400, slot 1 for 1200/1500
+//conn.initiateConnection({port: 102, host: '192.168.0.2', localTSAP: 0x0100, remoteTSAP: 0x0200, timeout: 8000}, connected); // local and remote TSAP can also be directly specified instead.  The timeout option specifies the TCP timeout.
 
 function valuesReady(anythingBad, values) {
   if (anythingBad) {
